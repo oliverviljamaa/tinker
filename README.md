@@ -31,7 +31,7 @@ import { mount, mockComponent } from 'angularjs-test';
 
 ## API
 
-### `mount(template, [props]) => [TestElementWrapper](#testelementwrapper-api)`
+### `mount(template, [props]) => TestElementWrapper`
 
 Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the scope.
 
@@ -56,7 +56,7 @@ describe('Component under test', () => {
 });
 ```
 
-### `mockComponent(name) => [mock](#mock-api)`
+### `mockComponent(name) => mock`
 
 By default, AngularJS renders the whole component tree. This function mocks a child component with `name` (`String`) in the component under test and returns a [`mock`](#mock-api). The child component won't be compiled and its controller won't be invoked, enabling testing the component under test in isolation. In addition, the returned `mock` has methods useful for testing.
 
