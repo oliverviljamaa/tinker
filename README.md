@@ -82,7 +82,7 @@ describe('Component under test', () => {
 
 </details>
 
-### TestElementWrapper API
+### `TestElementWrapper` API
 
 #### `.length => Number`
 
