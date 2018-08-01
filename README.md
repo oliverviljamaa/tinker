@@ -5,7 +5,7 @@ Unit testing utility for [AngularJS (1.x)](https://angularjs.org/), heavily insp
 Therefore, it is well suited for organisations and individuals **moving from AngularJS to React**. It is **test framework and runner agnostic**, but the examples are written using [Jest](https://github.com/facebook/jest) syntax.
 
 [`mount`](#mounttemplateprops--testelementwrapper)
-[`mockComponent](#mockcomponentname--mock)
+[`mockComponent`](#mockcomponentname--mock)
 
 ## Usage
 
