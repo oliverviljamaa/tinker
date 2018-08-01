@@ -4,7 +4,7 @@
 Unit testing utility for [AngularJS (1.x)](https://angularjs.org/), heavily inspired by the wonderful [Enzyme](http://airbnb.io/enzyme/) API. :heart:  
 Therefore, it is well suited for organisations and individuals **moving from AngularJS to React**. It is **test framework and runner agnostic**, but the examples are written using [Jest](https://github.com/facebook/jest) syntax.
 
-Available methods:
+Available methods:  
 [`mount(template, [props]) => TestElementWrapper`](#mounttemplateprops--testelementwrapper)  
 [`mockComponent(name) => mock`](#mockcomponentname--mock)
 
