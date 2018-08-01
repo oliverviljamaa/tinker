@@ -39,6 +39,7 @@ Mounts the `template` (`String`) with optional `props` (`Object`) and returns a 
 
 <details>
   <summary>Example</summary>
+
 ```js
 import 'angular';
 import 'angular-mocks';
@@ -57,6 +58,7 @@ describe('Component under test', () => {
   });
 });
 ```
+
 </details>
 
 ### `mockComponent(name) => mock`
