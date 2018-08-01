@@ -35,10 +35,8 @@ import { mount, mockComponent } from 'angularjs-test';
 
 Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the scope.
 
-#### Example
-
 <details>
-  <summary>Example</summary>
+  <summary>Show example</summary>
 
 ```js
 import 'angular';
@@ -65,7 +63,8 @@ describe('Component under test', () => {
 
 By default, AngularJS renders the whole component tree. This function mocks a child component with `name` (`String`) in the component under test and returns a [`mock`](#mock-api). The child component won't be compiled and its controller won't be invoked, enabling testing the component under test in isolation. In addition, the returned `mock` has methods useful for testing.
 
-#### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 import 'angular';
@@ -81,13 +80,16 @@ describe('Component under test', () => {
 });
 ```
 
+</details>
+
 ### TestElementWrapper API
 
 #### `.length => Number`
 
 The number of elements in the wrapper.
 
-##### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 let component;
@@ -106,13 +108,16 @@ it('has three list items', () => {
 });
 ```
 
+</details>
+
 ### `mock` API
 
 #### `.exists() => Boolean`
 
 Returns whether or not the mocked component exists in the rendered template.
 
-##### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 let component;
@@ -136,11 +141,14 @@ it('allows toggling child component', () => {
 });
 ```
 
+</details>
+
 #### `.props() => Object`
 
 Returns all mocked component props.
 
-##### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 let component;
@@ -162,11 +170,14 @@ it('passes props to child component', () => {
 });
 ```
 
+</details>
+
 #### `.prop(key) => Any`
 
 Returns mocked component prop value with the provided `key`.
 
-##### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 let component;
@@ -182,13 +193,16 @@ it('passes some prop to child component', () => {
 });
 ```
 
+</details>
+
 #### `.simulate(event, [data]) => Any`
 
 Calls an event handler on the mocked component for passed `event` with `data` (optional).
 
 NOTE: `event` should be written in camelCase and without the `on` present in the event handler name. So, to call `onSomePropChange`, `.simulate('somePropChange')` should be used.
 
-##### Example
+<details>
+  <summary>Show example</summary>
 
 ```js
 it('calls parent component with data when child component is called', () => {
@@ -208,6 +222,8 @@ it('calls parent component with data when child component is called', () => {
   expect(onSomePropChange).toBeCalledWith('New value');
 });
 ```
+
+</details>
 
 ## Contributing
 
