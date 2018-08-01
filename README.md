@@ -5,12 +5,12 @@ Unit testing utility for [AngularJS (1.x)](https://angularjs.org/), heavily insp
 Therefore, it is well suited for organisations and individuals **moving from AngularJS to React**. It is **test framework and runner agnostic**, but the examples are written using [Jest](https://github.com/facebook/jest) syntax.
 
 Available methods:  
-[`mount(template, [props]) => TestElementWrapper`](#mounttemplateprops--testelementwrapper)  
-[`mockComponent(name) => mock`](#mockcomponentname--mock)
+[`mount`](#mounttemplateprops--testelementwrapper)  
+[`mockComponent`](#mockcomponentname--mock)
 
 Returned classes:  
-[`TestElementWrapper`](#testelementwrapper)  
-[`mock`](#mock)
+[`TestElementWrapper`](#testelementwrapper-api)  
+[`mock`](#mock-api)
 
 ## Usage
 
@@ -31,9 +31,34 @@ import { mount, mockComponent } from 'angularjs-test';
 
 ## API
 
-### `mockComponent(name) => mock`
+### `mount(template, [props]) => [TestElementWrapper](#testelementwrapper-api)`
 
-By default, AngularJS renders the whole component tree. This function mocks a child component with `name` (`String`) in the component under test and returns a `mock`. The child component won't be compiled and its lifecycle hooks won't be invoked, enabling testing the component under test in isolation. However, the returned `mock` has methods useful for testing.
+Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the scope.
+
+#### Example
+
+```js
+import 'angular';
+import 'angular-mocks';
+import { mount } from 'angularjs-test';
+
+describe('Component under test', () => {
+  const TEMPLATE = `
+    <h1>{{ $ctrl.title }}</h1>
+    <p>{{ $ctrl.text }}</p>
+  `;
+
+  let component;
+  beforeEach(() => {
+    angular.mock.module('moduleOfComponentUnderTest');
+    component = mount(TEMPLATE, { title: 'A title', text: 'Some text' });
+  });
+});
+```
+
+### `mockComponent(name) => [mock](#mock-api)`
+
+By default, AngularJS renders the whole component tree. This function mocks a child component with `name` (`String`) in the component under test and returns a [`mock`](#mock-api). The child component won't be compiled and its controller won't be invoked, enabling testing the component under test in isolation. In addition, the returned `mock` has methods useful for testing.
 
 #### Example
 
@@ -44,18 +69,39 @@ import { mockComponent } from 'angularjs-test';
 
 describe('Component under test', () => {
   let childComponent;
-  let $scope;
   beforeEach(() => {
     angular.mock.module('moduleOfComponentUnderTest');
-    childComponent = mockComponent('child-component'); // ⇦ BETWEEN module and inject
-    angular.mock.inject($injector => {
-      $scope = $injector.get('$rootScope').$new();
-    });
+    childComponent = mockComponent('child-component'); // ⇦ after module, before inject
   });
 });
 ```
 
-`mock` has the following methods:
+### TestElementWrapper API
+
+#### `.length => Number`
+
+The number of elements in the wrapper.
+
+##### Example
+
+```js
+let component;
+beforeEach(() => {
+  component = mount(`
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  `);
+});
+
+it('has three list items', () => {
+  expect(component.find('li').length).toBe(3);
+});
+```
+
+### `mock` API
 
 #### `.exists() => Boolean`
 
@@ -71,7 +117,7 @@ beforeEach(() => {
       Show child
     </button>
     <child-component ng-if="$ctrl.show"></child-component>
-  `); // mount not part of this utility
+  `);
 });
 
 it('allows toggling child component', () => {
@@ -100,7 +146,7 @@ beforeEach(() => {
       some-prop="'A string'",
       some-other-prop="12345"
     ></child-component>
-  `); // mount not part of this utility
+  `);
 });
 
 it('passes props to child component', () => {
@@ -123,7 +169,7 @@ beforeEach(() => {
   component = mount(`
     <div>Something else</div>
     <child-component some-prop="'A string'"></child-component>
-  `); // mount not part of this utility
+  `);
 });
 
 it('passes some prop to child component', () => {
@@ -150,7 +196,7 @@ it('calls parent component with data when child component is called', () => {
       ></child-component>
     `,
     { onSomePropChange } // ⇦ props for component under test
-  ); // mount not part of this utility
+  );
 
   expect(onSomePropChange).not.toBeCalled();
   childComponent.simulate('somePropChange', 'New value');
