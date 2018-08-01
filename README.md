@@ -8,6 +8,10 @@ Available methods:
 [`mount(template, [props]) => TestElementWrapper`](#mounttemplateprops--testelementwrapper)  
 [`mockComponent(name) => mock`](#mockcomponentname--mock)
 
+Returned classes:  
+[`TestElementWrapper`](#testelementwrapper)  
+[`mock`](#mock)
+
 ## Usage
 
 ```bash
