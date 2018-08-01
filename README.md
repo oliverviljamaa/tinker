@@ -36,7 +36,7 @@ import { mount, mockComponent } from 'angularjs-test';
 Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the scope.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 import 'angular';
@@ -64,7 +64,7 @@ describe('Component under test', () => {
 By default, AngularJS renders the whole component tree. This function mocks a child component with `name` (`String`) in the component under test and returns a [`mock`](#mock-api). The child component won't be compiled and its controller won't be invoked, enabling testing the component under test in isolation. In addition, the returned `mock` has methods useful for testing.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 import 'angular';
@@ -89,7 +89,7 @@ describe('Component under test', () => {
 The number of elements in the wrapper.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 let component;
@@ -117,7 +117,7 @@ it('has three list items', () => {
 Returns whether or not the mocked component exists in the rendered template.
 
 <details>
-  <summary>Show example</summary>
+  <summary><a href="">Example</a></summary>
 
 ```js
 let component;
@@ -148,7 +148,7 @@ it('allows toggling child component', () => {
 Returns all mocked component props.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 let component;
@@ -177,7 +177,7 @@ it('passes props to child component', () => {
 Returns mocked component prop value with the provided `key`.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 let component;
@@ -202,7 +202,7 @@ Calls an event handler on the mocked component for passed `event` with `data` (o
 NOTE: `event` should be written in camelCase and without the `on` present in the event handler name. So, to call `onSomePropChange`, `.simulate('somePropChange')` should be used.
 
 <details>
-  <summary>Show example</summary>
+  <summary>Example</summary>
 
 ```js
 it('calls parent component with data when child component is called', () => {
