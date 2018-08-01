@@ -117,7 +117,7 @@ it('has three list items', () => {
 Returns whether or not the mocked component exists in the rendered template.
 
 <details>
-  <summary><a href="">Example</a></summary>
+  <summary>Example</summary>
 
 ```js
 let component;
