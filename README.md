@@ -354,6 +354,16 @@ Merges `props` (`Object`) with existing props and updates view to reflect them, 
 
 ```js
 it('changes title and text when props change', () => {
+  const component = mount(
+    `
+      <some-component
+        title="$ctrl.title"
+        text="$ctrl.text"
+      ></some-component>
+    `,
+    { title: 'Original title', text: 'Original text' },
+  );
+
   const title = () => component.find('h1').text();
   const text = () => component.find('p').text();
 
