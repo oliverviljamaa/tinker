@@ -342,7 +342,7 @@ it('changes text on input change', () => {
 
 #### `.setProps(props) => Self`
 
-Sets `props` (`Object`) and updates view to reflect them, returning itself for chaining.
+Merges `props` (`Object`) with existing props and updates view to reflect them, returning itself for chaining.
 
 <details>
   <summary>Example</summary>
