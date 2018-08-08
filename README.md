@@ -4,6 +4,8 @@
 Unit testing utility for [AngularJS (1.x)](https://angularjs.org/), heavily inspired by the wonderful [Enzyme](http://airbnb.io/enzyme/) API. :heart:  
 Therefore, it is well suited for organisations and individuals **moving from AngularJS to React**. It is **test framework and runner agnostic**, but the examples are written using [Jest](https://github.com/facebook/jest) syntax.
 
+[**An example showing the utility in use can be found here.**](example.test.js)
+
 Available methods:  
 [`mount`](#mounttemplate-props--testelementwrapper)  
 [`mockComponent`](#mockcomponentname--mock)
@@ -11,6 +13,7 @@ Available methods:
 Returned classes:  
 [`TestElementWrapper`](#testelementwrapper-api)  
 [`mock`](#mock-api)
+
 
 ## Usage
 
@@ -33,7 +36,7 @@ import { mount, mockComponent } from 'angularjs-test';
 
 ### `mount(template, [props]) => TestElementWrapper`
 
-Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the scope.
+Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope.
 
 <details>
   <summary>Example</summary>
@@ -91,20 +94,66 @@ The number of elements in the wrapper.
 <details>
   <summary>Example</summary>
 
-```js
-let component;
-beforeEach(() => {
-  component = mount(`
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-    </ul>
-  `);
-});
+For `some-component` with template:
 
+```html
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+```
+
+```js
 it('has three list items', () => {
+  const component = mount('<some-component></some-component>');
+
   expect(component.find('li').length).toBe(3);
+});
+```
+
+</details>
+
+#### `.html() => String`
+
+Returns HTML of the wrapper. It should only be used for logging purposes, in tests other methods should be preferred.
+
+<details>
+  <summary>Example</summary>
+
+For `some-component` with template:
+
+```html
+<h1>Some title</h1>
+```
+
+```js
+it('renders title as html', () => {
+  const component = mount('<some-component></some-component>');
+
+  expect(component.html()).toBe('<h1>Some title</h1>');
+});
+```
+
+</details>
+
+#### `.text() => String`
+
+<details>
+  <summary>Example</summary>
+
+For `some-component` with template:
+
+```html
+<h1>Some title</h1>
+<p>Some text</p>
+```
+
+```js
+it('has paragraph text', () => {
+  const component = mount('<some-component></some-component>');
+
+  expect(component.find('p').text()).toBe('Some text');
 });
 ```
 
