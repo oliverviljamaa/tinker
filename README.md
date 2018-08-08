@@ -206,6 +206,8 @@ it('does not have link', () => {
 });
 ```
 
+</details>
+
 #### `.find(selector) => TestElementWrapper`
 
 Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`).
