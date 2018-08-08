@@ -94,8 +94,6 @@ The number of elements in the wrapper.
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <ul>
   <li>1</li>
@@ -119,8 +117,6 @@ Returns HTML of the wrapper. It should only be used for logging purposes, in tes
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <h1>Some title</h1>
 ```
@@ -137,8 +133,6 @@ it('renders title as html', () => {
 
 <details>
   <summary>Example</summary>
-
-For template:
 
 ```html
 <h1>Some title</h1>
@@ -159,8 +153,6 @@ Returns whether the wrapper has a class or not.
 
 <details>
   <summary>Example</summary>
-
-For template:
 
 ```html
 <button class="success">Pay</button>
@@ -190,8 +182,6 @@ Returns whether or not the wrapper contains any elements.
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <button>Pay</button>
 ```
@@ -214,8 +204,6 @@ Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with ev
 
 <details>
   <summary>Example</summary>
-
-For template:
 
 ```html
 <div class="left">
@@ -246,8 +234,6 @@ Maps the nodes in the wrapper to another array using `fn` (`Function`).
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <ul>
   <li>One</li>
@@ -273,8 +259,6 @@ Returns all wrapper props/attributes.
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <a href="https://transferwise.com" target="_blank">Send money</a>
 ```
@@ -297,8 +281,6 @@ Returns wrapper prop/attribute value with provided `key` (`String`).
 <details>
   <summary>Example</summary>
 
-For template:
-
 ```html
 <a href="https://transferwise.com">Send money</a>
 ```
@@ -319,8 +301,6 @@ NOTE: `event` should be written in camelCase and without the `on` present in the
 
 <details>
   <summary>Example</summary>
-
-For template:
 
 ```html
 <input ng-model="$ctrl.text" />
@@ -371,8 +351,6 @@ Sets `props` (`Object`) and updates view to reflect them, returning itself for c
 
 <details>
   <summary>Example</summary>
-
-For template:
 
 ```html
 <h1>{{ $ctrl.title }}</h1>
