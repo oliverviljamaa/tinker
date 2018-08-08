@@ -147,9 +147,9 @@ it('has paragraph text', () => {
 
 </details>
 
-#### `.hasClass() => Boolean`
+#### `.hasClass(className) => Boolean`
 
-Returns whether the wrapper has a class or not.
+Returns whether the wrapper has a class with `className` (`String`) or not.
 
 <details>
   <summary>Example</summary>
