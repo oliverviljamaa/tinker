@@ -159,17 +159,12 @@ Returns whether the wrapper has a class with `className` (`String`) or not.
 ```
 
 ```js
-let button;
-beforeEach(() => {
-  button = component.find('button');
-});
-
 it('has success class', () => {
-  expect(button.hasClass('success')).toBe(true);
+  expect(component.find('button').hasClass('success')).toBe(true);
 });
 
 it('does not have error class', () => {
-  expect(button.hasClass('error')).toBe(false);
+  expect(component.find('button').hasClass('error')).toBe(false);
 });
 ```
 
