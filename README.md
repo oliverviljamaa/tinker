@@ -94,7 +94,7 @@ The number of elements in the wrapper.
 <details>
   <summary>Example</summary>
 
-For `some-component` with template:
+For template:
 
 ```html
 <ul>
@@ -106,8 +106,6 @@ For `some-component` with template:
 
 ```js
 it('has three list items', () => {
-  const component = mount('<some-component></some-component>');
-
   expect(component.find('li').length).toBe(3);
 });
 ```
@@ -121,7 +119,7 @@ Returns HTML of the wrapper. It should only be used for logging purposes, in tes
 <details>
   <summary>Example</summary>
 
-For `some-component` with template:
+For template:
 
 ```html
 <h1>Some title</h1>
@@ -129,8 +127,6 @@ For `some-component` with template:
 
 ```js
 it('renders title as html', () => {
-  const component = mount('<some-component></some-component>');
-
   expect(component.html()).toBe('<h1>Some title</h1>');
 });
 ```
@@ -142,7 +138,7 @@ it('renders title as html', () => {
 <details>
   <summary>Example</summary>
 
-For `some-component` with template:
+For template:
 
 ```html
 <h1>Some title</h1>
@@ -151,9 +147,246 @@ For `some-component` with template:
 
 ```js
 it('has paragraph text', () => {
-  const component = mount('<some-component></some-component>');
-
   expect(component.find('p').text()).toBe('Some text');
+});
+```
+
+</details>
+
+#### `.hasClass() => Boolean`
+
+Returns whether the wrapper has a class or not.
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<button class="success">Pay</button>
+```
+
+```js
+let button;
+beforeEach(() => {
+  button = component.find('button');
+});
+
+it('has success class', () => {
+  expect(button.hasClass('success')).toBe(true);
+});
+
+it('does not have error class', () => {
+  expect(button.hasClass('error')).toBe(false);
+});
+```
+
+</details>
+
+#### `.exists() => Boolean`
+
+Returns whether or not the wrapper contains any elements.
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<button>Pay</button>
+```
+
+```js
+it('has button, () => {
+  expect(component.find('button')).toBe(true);
+});
+
+it('does not have link', () => {
+  expect(component.find('a')).toBe(false);
+});
+```
+
+#### `.find(selector) => TestElementWrapper`
+
+Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`).
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<div class="left">
+  <a href="https://neopets.com">Wrong</a>
+  <a href="https://transferwise.com">Wrong</a>
+</div>
+<div class="right">
+  <a href="https://neopets.com">Wrong</a>
+  <a href="https://transferwise.com">Correct</a>
+</div>
+```
+
+```js
+it('has one transferwise link with corrext text on the right', () => {
+  const link = component.find('.right a[href="https://transferwise.com"]');
+
+  expect(link.length).toBe(1);
+  expect(link.text()).toBe('Correct');
+});
+```
+
+</details>
+
+#### `.map(fn) => Array<Any>`
+
+Maps the nodes in the wrapper to another array using `fn` (`Function`).
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<ul>
+  <li>One</li>
+  <li>Two</li>
+  <li>Three</li>
+</ul>
+```
+
+```js
+it('has three list items with their number as a word', () => {
+  const items = component.find('li');
+
+  expect(items.map(item => item.text())).toEqual(['One', 'Two', 'Three']);
+});
+```
+
+</details>
+
+#### `.props() => Object`
+
+Returns all wrapper props/attributes.
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<a href="https://transferwise.com" target="_blank">Send money</a>
+```
+
+```js
+it('has transferwise link that opens in a new tab', () => {
+  expect(component.find('a').props()).toEqual({
+    href: 'https://transferwise.com',
+    target: '_blank',
+  });
+});
+```
+
+</details>
+
+#### `.prop(key) => String`
+
+Returns wrapper prop/attribute value with provided `key` (`String`).
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<a href="https://transferwise.com">Send money</a>
+```
+
+```js
+it('has transferwise link', () => {
+  expect(component.find('a').prop('href')).toBe('https://transferwise.com');
+});
+```
+
+</details>
+
+#### `.simulate(event[, data]) => Self`
+
+Calls an event handler on the wrapper for passed `event` with `data` (optional) and returns wrapper for chaining.
+
+NOTE: `event` should be written in camelCase and without the `on` present in the event handler name. Currently, `change` and `click` events are supported, with `change` requiring an event format.
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<input ng-model="$ctrl.text" />
+<p>{{ $ctrl.text }}</p>
+<button ng-click="$ctrl.onClick({ $event: $ctrl.text })">Click me</button>
+```
+
+```js
+let component;
+let onClick;
+beforeEach(() => {
+  onClick = jest.fn();
+  component = mount(
+    `
+      <some-component
+        text="$ctrl.text"
+        on-click="$ctrl.onClick($event)"
+      ></some-component>
+    `,
+    { text: 'Original text', onClick },
+  );
+});
+
+it('calls click handler on button click', () => {
+  const button = component.find('button');
+
+  expect(onClick).not.toBeCalled();
+  button.simulate('click');
+  expect(onClick).toBeCalledWith('Original text');
+});
+
+it('changes text on input change', () => {
+  const input = component.find('input');
+
+  const text = () => component.find('p').text();
+
+  expect(text()).toBe('Original text');
+  input.simulate('change', { target: { value: 'New text' } });
+  expect(text()).toBe('New text');
+});
+```
+
+</details>
+
+#### `.setProps(props) => Self`
+
+Sets `props` (`Object`) and updates view to reflect them, returning itself for chaining.
+
+<details>
+  <summary>Example</summary>
+
+For template:
+
+```html
+<h1>{{ $ctrl.title }}</h1>
+<p>{{ $ctrl.text }}</p>
+```
+
+```js
+it('changes title and text when props change', () => {
+  const title = () => component.find('h1').text();
+  const text = () => component.find('p').text();
+
+  expect(title()).toBe('Original title');
+  expect(text()).toBe('Original text');
+  component.setProps({ title: 'New title', text: 'New text' });
+  expect(title()).toBe('New title');
+  expect(text()).toBe('New text');
 });
 ```
 
@@ -223,7 +456,7 @@ it('passes props to child component', () => {
 
 #### `.prop(key) => Any`
 
-Returns mocked component prop value with the provided `key`.
+Returns mocked component prop value with the provided `key` (`String`).
 
 <details>
   <summary>Example</summary>
@@ -244,9 +477,9 @@ it('passes some prop to child component', () => {
 
 </details>
 
-#### `.simulate(event, [data]) => Any`
+#### `.simulate(event[, data]) => Self`
 
-Calls an event handler on the mocked component for passed `event` with `data` (optional).
+Calls an event handler on the mocked component for passed `event` with `data` (optional) and returns mocked component for chaining.
 
 NOTE: `event` should be written in camelCase and without the `on` present in the event handler name. So, to call `onSomePropChange`, `.simulate('somePropChange')` should be used.
 
