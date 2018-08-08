@@ -34,7 +34,7 @@ import { mount, mockComponent } from 'angularjs-test';
 
 ## API
 
-### `mount(template, [props]) => TestElementWrapper`
+### `mount(template[, props]) => TestElementWrapper`
 
 Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope.
 
