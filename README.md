@@ -183,11 +183,11 @@ Returns whether or not the wrapper contains any elements.
 
 ```js
 it('has button', () => {
-  expect(component.find('button')).toBe(true);
+  expect(component.find('button').exists()).toBe(true);
 });
 
 it('does not have link', () => {
-  expect(component.find('a')).toBe(false);
+  expect(component.find('a').exists()).toBe(false);
 });
 ```
 
