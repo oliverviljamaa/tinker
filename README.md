@@ -1,5 +1,5 @@
-# :rotating_light: AngularJS test
-[![npm](https://img.shields.io/npm/v/angularjs-test.svg)](https://www.npmjs.com/package/angularjs-test) [![GitHub release](https://img.shields.io/github/release/oliverviljamaa/angularjs-test.svg)](https://github.com/oliverviljamaa/angularjs-test/releases) [![CircleCI](https://img.shields.io/circleci/project/github/oliverviljamaa/angularjs-test/master.svg)](https://circleci.com/gh/oliverviljamaa/angularjs-test) [![npm](https://img.shields.io/npm/l/angularjs-test.svg)](https://github.com/oliverviljamaa/angularjs-test/blob/master/LICENSE)
+# :rotating_light: AngularJS Enzyme
+[![npm](https://img.shields.io/npm/v/angularjs-enzyme.svg)](https://www.npmjs.com/package/angularjs-enzyme) [![GitHub release](https://img.shields.io/github/release/oliverviljamaa/angularjs-enzyme.svg)](https://github.com/oliverviljamaa/angularjs-enzyme/releases) [![CircleCI](https://img.shields.io/circleci/project/github/oliverviljamaa/angularjs-enzyme/master.svg)](https://circleci.com/gh/oliverviljamaa/angularjs-enzyme) [![npm](https://img.shields.io/npm/l/angularjs-enzyme.svg)](https://github.com/oliverviljamaa/angularjs-enzyme/blob/master/LICENSE)
 
 Unit testing utility for [AngularJS (1.x)](https://angularjs.org/), heavily inspired by the wonderful [Enzyme](http://airbnb.io/enzyme/) API. :heart:  
 Therefore, it is well suited for organisations and individuals **moving from AngularJS to React**. It is **test framework and runner agnostic**, but the examples are written using [Jest](https://github.com/facebook/jest) syntax.
@@ -7,7 +7,7 @@ Therefore, it is well suited for organisations and individuals **moving from Ang
 [**An example showing the utility in use can be found here.**](example.test.js)
 
 Available methods:  
-[`mount`](#mounttemplate-props--testelementwrapper)  
+[`mount`](#mounttemplate-props-options-mockcomponents--testelementwrapper)  
 [`mockComponent`](#mockcomponentname--mock)
 
 Returned classes:  
@@ -18,25 +18,25 @@ Returned classes:
 ## Usage
 
 ```bash
-npm install angularjs-test --save-dev
+npm install angularjs-enzyme --save-dev
 ```
 
 ### Module context
 
 ```js
-import { mount, mockComponent } from 'angularjs-test'; 
+import { mount, mockComponent } from 'angularjs-enzyme'; 
 ```
 
 ### Non-module context
 
-1. Include the script from `node_modules/angularjs-test/dist/angular-test.js`.
-2. Use the utility from the global context under the name `angularjsTest`.
+1. Include the script from `node_modules/angularjs-enzyme/dist/angularjs-enzyme.js`.
+2. Use the utility from the global context under the name `angularjsEnzyme`.
 
 ## API
 
-### `mount(template[, props]) => TestElementWrapper`
+### `mount(template[, props, options: { mockComponents }]) => TestElementWrapper`
 
-Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope.
+Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope. When `mockComponents` (`Array`) is specified, the child components with the names in the array will be mocked and will be findable from the resulting [`TestElementWrapper`](#testelementwrapper-api), returning their [`mock`](#mock-api).
 
 <details>
   <summary>Example</summary>
@@ -44,7 +44,7 @@ Mounts the `template` (`String`) with optional `props` (`Object`) and returns a 
 ```js
 import 'angular';
 import 'angular-mocks';
-import { mount } from 'angularjs-test';
+import { mount } from 'angularjs-enzyme';
 
 describe('Component under test', () => {
   const TEMPLATE = `
@@ -55,7 +55,11 @@ describe('Component under test', () => {
   let component;
   beforeEach(() => {
     angular.mock.module('moduleOfComponentUnderTest');
-    component = mount(TEMPLATE, { title: 'A title', text: 'Some text' });
+    component = mount(
+      TEMPLATE,
+      { title: 'A title', text: 'Some text' },
+      { mockComponents: ['child-component', 'another-child-component'] }, // optional
+    );
   });
 });
 ```
@@ -72,7 +76,7 @@ By default, AngularJS renders the whole component tree. This function mocks a ch
 ```js
 import 'angular';
 import 'angular-mocks';
-import { mockComponent } from 'angularjs-test';
+import { mockComponent } from 'angularjs-enzyme';
 
 describe('Component under test', () => {
   let childComponent;
@@ -193,9 +197,9 @@ it('does not have link', () => {
 
 </details>
 
-#### `.find(selector) => TestElementWrapper`
+#### `.find(selector) => TestElementWrapper | mock`
 
-Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`).
+Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`). When the component was[`mount`](#mounttemplate-props-options-mockcomponents--testelementwrapper)ed with `mockComponents` specified, these components will also be findable by their name and will return their [`mock`](#mock-api). 
 
 <details>
   <summary>Example</summary>
@@ -497,9 +501,9 @@ it('calls parent component with data when child component is called', () => {
 1. Run tests with `npm run test:watch`. `npm test` will check for package and changelog version match, ESLint and Prettier format in addition.
 1. Bump version number in `package.json` according to [semver](http://semver.org/) and add an item that a release will be based on to `CHANGELOG.md`.
 1. Submit your pull request from a feature branch and get code reviews.
-1. If the pull request is approved and the [CircleCI build](https://circleci.com/gh/oliverviljamaa/angularjs-test) passes, you will be able to squash/rebase and merge.
-1. Code will automatically be released to [GitHub](https://github.com/oliverviljamaa/angularjs-test/releases) and published to [npm](https://www.npmjs.com/package/angularjs-test) according to the version specified in the changelog and `package.json`.
+1. If the pull request is approved and the [CircleCI build](https://circleci.com/gh/oliverviljamaa/angularjs-enzyme) passes, you will be able to squash/rebase and merge.
+1. Code will automatically be released to [GitHub](https://github.com/oliverviljamaa/angularjs-enzyme/releases) and published to [npm](https://www.npmjs.com/package/angularjs-enzyme) according to the version specified in the changelog and `package.json`.
 
 ## Other
 
-For features and bugs, feel free to [add issues](https://github.com/oliverviljamaa/angularjs-test/issues) or contribute.
+For features and bugs, feel free to [add issues](https://github.com/oliverviljamaa/angularjs-enzyme/issues) or contribute.
