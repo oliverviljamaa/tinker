@@ -36,7 +36,7 @@ import { mount, mockComponent } from 'angularjs-enzyme';
 
 ### `mount(template[, props, options]) => TestElementWrapper`
 
-Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope. When `options.mockComponents` (`Array`) is specified, the child components with the names in the array will be mocked and will be findable from the resulting [`TestElementWrapper`](#testelementwrapper-api), returning their [`mock`](#mock-api).
+Mounts the `template` (`String`) with optional `props` (`Object`) and returns a [`TestElementWrapper`](#testelementwrapper-api) with numerous helper methods. The props are attached to the `$ctrl` available in the template scope. When `options.mockComponents` (`Array`) is specified, the child components with the names in the array will be [`mocked`](#mockcomponentname--mock) and will be findable from the resulting [`TestElementWrapper`](#testelementwrapper-api), returning their [`mock`](#mock-api).
 
 <details>
   <summary>Example</summary>
