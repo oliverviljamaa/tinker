@@ -7,7 +7,7 @@ Therefore, it is well suited for organisations and individuals **moving from Ang
 [**An example showing the utility in use can be found here.**](example.test.js)
 
 Available methods:  
-[`mount`](#mounttemplate-props-options-mockcomponents--testelementwrapper)  
+[`mount`](#mounttemplate-props-options--mockcomponents---testelementwrapper)  
 [`mockComponent`](#mockcomponentname--mock)
 
 Returned classes:  
@@ -199,7 +199,7 @@ it('does not have link', () => {
 
 #### `.find(selector) => TestElementWrapper | mock`
 
-Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`). When the component was[`mount`](#mounttemplate-props-options-mockcomponents--testelementwrapper)ed with `mockComponents` specified, these components will also be findable by their name and will return their [`mock`](#mock-api). 
+Returns a [`TestElementWrapper`](#testelementwrapper-api) (for chaining) with every element matching the `selector` (`String`). When the component was[`mount`](#mounttemplate-props-options--mockcomponents---testelementwrapper)ed with `mockComponents` specified, these components will also be findable by their name and will return their [`mock`](#mock-api). 
 
 <details>
   <summary>Example</summary>
